@@ -1,0 +1,127 @@
+// HEADER
+
+header {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1140px;
+  margin: auto;
+  margin-top: 50px;
+}
+
+h1 {
+  display: flex;
+  flex-direction: column;
+  font-family: "Syne";
+  font-size: 22px;
+  font-weight: 800;
+  color: #b1663c;
+}
+h1 > span {
+  font-family: "Work Sans";
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+h2 {
+  font-family: "Syne";
+  font-weight: 700;
+  font-size: 30px;
+  color: #1d6154;
+}
+
+nav ul {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  cursor: pointer;
+}
+
+nav li {
+  padding: 0 25px;
+  font-size: 1.2em;
+  
+}
+
+li:hover {
+  color: #b1663c;
+}
+
+img.insta {
+  width: 20px;
+}
+
+// BUTTON
+
+#contact input,
+#connexion input {
+  height: 51px;
+  font-size: 1em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+input[type="submit"] {
+  font-family: "Syne";
+  font-weight: 700;
+  color: white;
+  background-color: #1d6154;
+  margin: 2em auto;
+  width: 180px;
+  text-align: center;
+  border-radius: 60px;
+}
+
+#contact,
+#connexion {
+	max-width: 35%;
+	margin: auto;
+	margin-top: 50px;
+}
+
+#contact>*,
+#connexion>* {
+	text-align: center;
+
+}
+
+#contact h2,
+#connexion h2 {
+	margin-bottom: 20px;
+}
+
+#contact form,
+#connexion form {
+	text-align: left;
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#contact label,
+#connexion label {
+	margin: 2em 0 1em 0;
+}
+
+#contact textarea,
+#connexion textarea {
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+input#btn {
+    height: 36px;
+}
+
+// FOOTER
+footer nav ul {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2em;
+}
+
+footer {
+    background-color: white;
+    height: 60px;
+    display: flex;
+    flex-direction: row-reverse;
+}
