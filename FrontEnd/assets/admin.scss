@@ -1,0 +1,23 @@
+header {
+  display: block;
+  margin-top: 0;
+  max-width: 1440px;
+}
+
+section.header-base {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1140px;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.edit {
+  background-color: black;
+  color: white;
+  display: flex;
+  height: 59px;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}

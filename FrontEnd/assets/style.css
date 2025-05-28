@@ -1,3 +1,11 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1140px;
+  margin: auto;
+  margin-top: 50px;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
