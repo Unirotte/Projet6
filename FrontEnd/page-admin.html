@@ -76,38 +76,41 @@
 								<div class="title-modal">Ajout Photo </div>
 							</h3>
 							<form id="add-work-form">
+
 								<div class="img-upload">
+									<img id="preview" src="" alt="" class="hidden">
 
-									<label for="imageInput" class="image-label">
-										
+									<label id="imageLabel" for="imageInput" class="image-label">
+										<i class="fa-solid fa-image fa-2xl"></i>
 										<span class="newBtn"><i class="fa-solid fa-plus"></i>Ajouter photo</span>
-										<img id="preview" src="" alt="" class="hidden"><i
-											class="fa-solid fa-image fa-2xl"></i>
-										<input type="file" id="imageInput" src="" name="image" accept="image/*"
-											required>
+										<p> jpg, png : 4mo max</p>
+									</label>
+
+									<input type="file" id="imageInput" src="" name="image" accept="image/*" required>
 								</div>
-								</label>
+								<div class="position-category">
 
-								<label for="texte">Titre</label>
-								<input type="text" name="title" required>
-
-								<select required>
-									<label for="required">catégorie</label>
-									<option value=""></option>
-									<option value="1">Objets</option>
-									<option value="2">Appartements</option>
-									<option value="3">Hotels & restaurants</option>
-								</select>
-								<button type="submit" class="Valider">Valider</button>
+									<label for="texte">Titre</label>
+									<input type="text" id="textModal" name="title" required>
+									<label for="required">Catégorie</label>
+									<select required id="selectModal">
+										<option value=""></option>
+										<option value="1">Objets</option>
+										<option value="2">Appartements</option>
+										<option value="3">Hotels & restaurants</option>
+									</select>
+									
+									<div class="valid"><button type="submit" class="Valider">Valider</button></div>
 							</form>
-							<button class="back-to-gallery"><i class="fa-solid fa-arrow-left fa-xl"></i></button>
 						</div>
-
-						<button class="close-modal modal-trigger"><i class="fa-solid fa-xmark fa-lg"></i></button>
+						<button class="back-to-gallery"><i class="fa-solid fa-arrow-left fa-xl"></i></button>
 					</div>
-				</div>
 
-				<section id="gallery" class="gallery"></section>
+					<button class="close-modal modal-trigger"><i class="fa-solid fa-xmark fa-lg"></i></button>
+				</div>
+			</div>
+
+			<section id="gallery" class="gallery"></section>
 		</section>
 		<section id="contact">
 			<h2>Contact</h2>

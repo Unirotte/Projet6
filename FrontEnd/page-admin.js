@@ -107,7 +107,7 @@ newPictureBtn.addEventListener('click', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const addWorkForm = document.getElementById('.add-work-form');
+  const addWorkForm = document.getElementById('add-work-form');
   if (!addWorkForm) return;
   addWorkForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -139,12 +139,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-function showGalleryView() {
+async function showGalleryView() {
   addFormView.classList.remove('active');
   galleryView.classList.add('active');
   newPictureBtn.classList.remove('hidden');
   validateBtn.classList.remove('active');
+
+  const works = await fetchGallery();
+  displayGallery(works);
+
 }
+
 
 function showFormView() {
   galleryView.classList.remove('active');
@@ -158,14 +163,16 @@ backBtn.addEventListener('click', showGalleryView);
 function previewImage(e) {
   const input = e.target;
   const image = document.getElementById("preview");
-  
+  const label = document.getElementById("imageLabel")
+
   if (input.files && input.files[0]) {
     const reader = new FileReader();
-  reader.onload = function (e) {
-    image.src = e.target.result;
-    image.classList.remove("hidden");
-  }
-  reader.readAsDataURL(input.files[0]);
+    reader.onload = function (e) {
+      image.src = e.target.result;
+      image.classList.remove("hidden");
+      label.style.display = "none";
+    }
+    reader.readAsDataURL(input.files[0]);
   }
 }
 document.getElementById("imageInput").addEventListener("change", previewImage);

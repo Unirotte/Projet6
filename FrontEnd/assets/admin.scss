@@ -181,6 +181,7 @@ select {
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 .img-upload {
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -202,13 +203,11 @@ img#preview {
 .img-upload img {
   max-width: 100%;
   height: auto;
-  margin-bottom: 1rem;
 }
 
 input[type="file"] {
   display: none;
 }
-
 
 .newBtn {
   background-color: #cbd6dc;
@@ -221,4 +220,31 @@ input[type="file"] {
   align-items: center;
   justify-content: center;
   gap: 5px;
+}
+
+label.image-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.valid {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.position-category {
+  display: flex;
+  flex-direction: column;
+}
+
+input#textModal {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+select#selectModal {
+  margin-top: 10px;
 }

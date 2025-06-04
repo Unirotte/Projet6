@@ -185,6 +185,7 @@ select {
 }
 
 .img-upload {
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -207,7 +208,6 @@ img#preview {
 .img-upload img {
   max-width: 100%;
   height: auto;
-  margin-bottom: 1rem;
 }
 
 input[type=file] {
@@ -225,4 +225,31 @@ input[type=file] {
   align-items: center;
   justify-content: center;
   gap: 5px;
+}
+
+label.image-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.valid {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.position-category {
+  display: flex;
+  flex-direction: column;
+}
+
+input#textModal {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+select#selectModal {
+  margin-top: 10px;
 }/*# sourceMappingURL=admin.css.map */
