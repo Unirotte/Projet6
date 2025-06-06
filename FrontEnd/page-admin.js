@@ -54,7 +54,7 @@ const newPictureBtn = document.querySelector('.New-Picture');
 const backBtn = document.querySelector('.back-to-gallery');
 const validateBtn = document.querySelector('.Valider');
 const gallery = document.querySelector('.gallery-modal');
-const addWorkForm = document.getElementById('.add-work-form');
+const addWorkForm = document.getElementById('add-work-form');
 
 modalTrigger.forEach(trigger => trigger.addEventListener('click', toggleModal));
 
@@ -84,9 +84,51 @@ function displayGallery(works) {
     img.src = work.imageUrl;
     img.alt = work.title;
 
+    const deleteIcon = document.createElement('i');
+    deleteIcon.className = 'fa-solid fa-trash-can delete-icon';
+    deleteIcon.dataset.id = work.id;
+
+    deleteIcon.addEventListener('click', async () => {
+      await deleteWork(work.id);
+      await updateAllGalleries();
+    });
+
     container.appendChild(img);
+    container.appendChild(deleteIcon);
     gallery.appendChild(container);
   });
+}
+
+async function deleteWork(id) {
+  try {
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Accept': '*/*'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erreur de suppression (code ${response.status})`);
+    }
+
+    console.log(`Œuvre ${id} supprimée`);
+  } catch (error) {
+    console.error('Erreur :', error);
+    alert("Échec de la suppression de l'œuvre.");
+  }
+}
+
+async function updateAllGalleries() {
+  const works = await fetchGallery();
+  displayGallery(works);
+  displayWorks(works);
+
+  const publicGallery = document.querySelector('#gallery');
+  if (publicGallery) {
+    displayWorks(works);
+  }
 }
 
 // Fonction pour ouvrir/fermer le modal et afficher la galerie
@@ -115,6 +157,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const formData = new FormData(addWorkForm);
 
     try {
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}:`, value);
+      }
       const reponse = await fetch('http://localhost:5678/api/works', {
         method: 'POST',
         headers: {
@@ -123,15 +168,21 @@ document.addEventListener('DOMContentLoaded', () => {
         body: formData
       });
 
+      const responseText = await reponse.text(); // <-- récupère la réponse brute (même en cas d'erreur)
+      console.log("Réponse brute de l'API :", responseText);
+
       if (!reponse.ok) {
         throw new Error("Erreur lors de l'ajout de l'œuvre.");
       }
-      const newWork = await reponse.json();
+
       alert('Œuvre ajoutée avec succès !');
       addWorkForm.reset();
       showGalleryView();
+
       const works = await fetchGallery();
       displayGallery(works);
+      displayWorks(works);
+
     } catch (error) {
       console.error(error);
       alert('Erreur lors de l’ajout de l’œuvre. Veuillez réessayer.');
@@ -150,12 +201,28 @@ async function showGalleryView() {
 
 }
 
+function resetAddWorkForm() {
+  const addWorkForm = document.getElementById('add-work-form');
+  const imageInput = document.getElementById('imageInput');
+  const previewImage = document.getElementById('preview');
+  const imageLabel = document.getElementById('imageLabel');
+
+  if (!addWorkForm || !imageInput || !previewImage || !imageLabel) return;
+
+  addWorkForm.reset();              // reset les champs texte, select etc
+  imageInput.value = "";            // vide le input file (sinon le fichier reste sélectionné)
+  previewImage.src = "";            // vide la preview de l'image
+  previewImage.classList.add('hidden');  // cache l'image preview
+  imageLabel.style.display = "block";    // réaffiche le label d'ajout d'image
+}
 
 function showFormView() {
   galleryView.classList.remove('active');
   addFormView.classList.add('active');
   newPictureBtn.classList.add('hidden');
   validateBtn.classList.add('active');
+
+  resetAddWorkForm();
 }
 
 backBtn.addEventListener('click', showGalleryView);

@@ -143,6 +143,7 @@ h3 {
 }
 
 .img-modal {
+  position: relative;
   margin-left: 10px;
   margin-bottom: 25px;
   width: 76px;
@@ -185,7 +186,7 @@ select {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: aliceblue;
+  background-color: #e8f1f6;
   width: 420px;
   height: 169px;
   justify-content: center;
@@ -247,4 +248,24 @@ input#textModal {
 
 select#selectModal {
   margin-top: 10px;
+}
+
+i.fa-solid.fa-image.fa-2xl {
+  font-size: 80px;
+  color: #b9c5cc;
+}
+
+.delete-icon {
+  position: absolute;
+  color: white;
+  background-color: black;
+  width: 17px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 0px;
+  font-size: 9px;
+  top: 2px;
+  border-radius: 2px;
 }
