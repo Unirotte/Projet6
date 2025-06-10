@@ -55,6 +55,8 @@ const backBtn = document.querySelector('.back-to-gallery');
 const validateBtn = document.querySelector('.Valider');
 const gallery = document.querySelector('.gallery-modal');
 const addWorkForm = document.getElementById('add-work-form');
+const titleInput = document.getElementById('textModal');
+const categorySelect = document.getElementById('selectModal');
 
 modalTrigger.forEach(trigger => trigger.addEventListener('click', toggleModal));
 
@@ -112,7 +114,7 @@ async function deleteWork(id) {
     if (!response.ok) {
       throw new Error(`Erreur de suppression (code ${response.status})`);
     }
-
+    alert('Œuvre supprimer avec succès !');
     console.log(`Œuvre ${id} supprimée`);
   } catch (error) {
     console.error('Erreur :', error);
@@ -190,6 +192,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+
+
 async function showGalleryView() {
   addFormView.classList.remove('active');
   galleryView.classList.add('active');
@@ -213,7 +217,7 @@ function resetAddWorkForm() {
   imageInput.value = "";            // vide le input file (sinon le fichier reste sélectionné)
   previewImage.src = "";            // vide la preview de l'image
   previewImage.classList.add('hidden');  // cache l'image preview
-  imageLabel.style.display = "block";    // réaffiche le label d'ajout d'image
+  // imageLabel.style.display = "block";    // réaffiche le label d'ajout d'image
 }
 
 function showFormView() {
@@ -237,9 +241,61 @@ function previewImage(e) {
     reader.onload = function (e) {
       image.src = e.target.result;
       image.classList.remove("hidden");
-      label.style.display = "none";
+        label.classList.add("image-only");
     }
     reader.readAsDataURL(input.files[0]);
+  } else {
+    // Si on supprime l'image, on réaffiche le placeholder
+    image.src = "";
+    image.classList.add("hidden");
+    placeholder.classList.remove("hidden");
   }
 }
+document.getElementById('imageInput').addEventListener('click', (e) => {
+  e.target.value = ''; // réinitialise la valeur pour autoriser un nouveau choix
+});
+
 document.getElementById("imageInput").addEventListener("change", previewImage);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const navLinks = document.querySelectorAll('nav a');
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+});
+document.querySelectorAll('nav a').forEach(link => {
+  if (window.location.href.includes(link.getAttribute('href'))) {
+    link.classList.add('active');
+  }
+});
+
+function updateValidateButtonState() {
+  const imageInput = document.getElementById('imageInput');
+
+  const isImageSelected = imageInput.files.length > 0;
+  const isTitleFilled = titleInput.value.trim() !== '';
+  const isCategorySelected = categorySelect.value !== '';
+
+  if (isImageSelected && isTitleFilled && isCategorySelected) {
+    validateBtn.disabled = false;
+    validateBtn.classList.add('active'); // active est déjà utilisée pour affichage
+    validateBtn.classList.remove('disabled');
+  } else {
+    validateBtn.disabled = true;
+    validateBtn.classList.add('disabled');
+    validateBtn.classList.remove('active');
+  }
+}
+
+['change', 'input'].forEach(evt => {
+  document.getElementById('imageInput').addEventListener(evt, updateValidateButtonState);
+  document.getElementById('textModal').addEventListener(evt, updateValidateButtonState);
+  document.getElementById('selectModal').addEventListener(evt, updateValidateButtonState);
+});
+
+document.addEventListener('DOMContentLoaded', updateValidateButtonState);
+

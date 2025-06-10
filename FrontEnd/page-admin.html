@@ -28,7 +28,7 @@
 			<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 			<nav>
 				<ul>
-					<li>projets</li>
+					<li><a href="#index.html"> projets </a></li>
 					<li><a href="#contact">contact</a></li>
 					<li><a href="login.html" id="Log">login</a></li>
 					<li><img src="./assets/icons/instagram.png" alt="Instagram" class="insta"></li>
@@ -55,60 +55,57 @@
 		<section id="portfolio">
 			<div class="edit-title">
 				<h2>Mes Projets</h2>
-				<div class="edit-Projet"><i class="fa-regular fa-pen-to-square fa-lg"></i></div>
+				<div class="edit-Projet"><i class="fa-regular fa-pen-to-square fa-lg"></i>
 
-				<button class="btn-modif modal-trigger">modifier</button>
-
-				<div class="modal-container">
-					<div class="overlay modal-trigger"></div>
-
-					<div class="modal">
-						<div class="modal-view gallery-view active">
-							<h3>
-								<div class="title-modal">Galerie photo</div>
-							</h3>
-							<div class="gallery-modal"></div>
-							<button class="New-Picture">Ajouter une photo</button>
-						</div>
-
-						<div class="modal-view add-form-view">
-							<h3>
-								<div class="title-modal">Ajout Photo </div>
-							</h3>
-							<form id="add-work-form">
-
-								<div class="img-upload">
-									<img id="preview" src="" alt="" class="hidden">
-
-									<label id="imageLabel" for="imageInput" class="image-label">
-										<i class="fa-solid fa-image fa-2xl"></i>
-										<span class="newBtn"><i class="fa-solid fa-plus"></i>Ajouter photo</span>
-										<p> jpg, png : 4mo max</p>
-									</label>
-
-									<input type="file" name="image" id="imageInput" accept="image/*" required>
-								</div>
-								<div class="position-category">
-
-									<label for="texte">Titre</label>
-									<input type="text" id="textModal" name="title" required>
-									<label for="required">Catégorie</label>
-									<select required id="selectModal" name="category">
-										<option value=""></option>
-										<option value="1">Objets</option>
-										<option value="2">Appartements</option>
-										<option value="3">Hotels & restaurants</option>
-									</select>
-									
-									<div class="valid"><button type="submit" class="Valider">Valider</button></div>
-							</form>
-						</div>
-						<button class="back-to-gallery"><i class="fa-solid fa-arrow-left fa-xl"></i></button>
-					</div>
-
-					<button class="close-modal modal-trigger"><i class="fa-solid fa-xmark fa-lg"></i></button>
+					<button class="btn-modif modal-trigger">modifier</button>
 				</div>
 			</div>
+
+			<div class="modal-container">
+				<div class="overlay modal-trigger"></div>
+
+				<div class="modal">
+					<div class="modal-view gallery-view active">
+						<h3 class="title-modal">Galerie photo</h3>
+						<div class="gallery-modal"></div>
+						<button class="New-Picture">Ajouter une photo</button>
+					</div>
+
+					<div class="modal-view add-form-view">
+						<h3 class="title-modal">Ajout Photo</h3>
+						<form id="add-work-form">
+
+							<div class="img-upload">
+								<input type="file" name="image" id="imageInput" accept="image/*" required>
+								<label id="imageLabel" for="imageInput" class="image-label">
+									<img id="preview" src="" alt="" class="hidden">
+									<div class="imgNewBtn"><i class="fa-solid fa-image fa-2xl"></i></div>
+									<div class="positionNewImg">
+										<span class="newBtn"><i class="fa-solid fa-plus"></i>Ajouter photo</span>
+										<p> jpg, png : 4mo max</p>
+									</div>
+								</label>
+							</div>
+							<div class="position-category">
+
+								<label for="texte">Titre</label>
+								<input type="text" id="textModal" name="title" required>
+								<label for="required">Catégorie</label>
+								<select required id="selectModal" name="category">
+									<option value=""></option>
+									<option value="1">Objets</option>
+									<option value="2">Appartements</option>
+									<option value="3">Hotels & restaurants</option>
+								</select>
+							</div>
+								<div class="valid"><button type="submit" class="Valider">Valider</button></div>
+						</form>
+					</div>
+					<button class="close-modal modal-trigger"><i class="fa-solid fa-xmark fa-lg"></i></button>
+					<button class="back-to-gallery"><i class="fa-solid fa-arrow-left fa-xl"></i></button>
+				</div>
+			</div>
+		
 
 			<section id="gallery" class="gallery"></section>
 		</section>

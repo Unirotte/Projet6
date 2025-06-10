@@ -32,12 +32,21 @@ nav li {
   font-size: 1.2em;
 }
 
-li:hover {
-  color: #b1663c;
-}
-
 img.insta {
   width: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: inherit;
+}
+
+nav a.active {
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
 }
 
 #contact input,
