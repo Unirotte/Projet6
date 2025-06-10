@@ -217,7 +217,7 @@ function resetAddWorkForm() {
   imageInput.value = "";            // vide le input file (sinon le fichier reste sélectionné)
   previewImage.src = "";            // vide la preview de l'image
   previewImage.classList.add('hidden');  // cache l'image preview
-  // imageLabel.style.display = "block";    // réaffiche le label d'ajout d'image
+ imageLabel.classList.remove("image-only");
 }
 
 function showFormView() {

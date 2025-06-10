@@ -6,6 +6,10 @@ function displayWorks(works) {
   works.forEach(work => {
     const figure = document.createElement('figure');
 
+    const link = document.createElement('a');
+    link.href = work.imageUrl; // URL de l'image en grand format
+    link.target = '_blank'; // Ouvre dans un nouvel onglet
+
     const img = document.createElement('img');
     img.src = work.imageUrl;
     img.alt = work.title;
@@ -13,42 +17,45 @@ function displayWorks(works) {
     const caption = document.createElement('figcaption');
     caption.textContent = work.title;
 
-    figure.appendChild(img);
-    figure.appendChild(caption);
-    gallery.appendChild(figure);
+    link.appendChild(img); // Ajoute l'image dans le lien
+    figure.appendChild(link); // Ajoute le lien dans la figure
+    figure.appendChild(caption); // Ajoute la légende
+
+    gallery.appendChild(figure); // Ajoute la figure à la galerie
+
   });
 }
 async function loadWorks() {
   const response = await fetch('http://localhost:5678/api/works');
   const works = await response.json();
-  displayWorks(works); 
-  return works; 
+  displayWorks(works);
+  return works;
 }
 
 async function loadCategories() {
   const response = await fetch('http://localhost:5678/api/categories');
   const categories = await response.json();
   const filterContainer = document.getElementById('filter');
-  
-  gallery.innerHTML = ''; 
-  
-const allBtn = document.createElement('div');
+
+  gallery.innerHTML = '';
+
+  const allBtn = document.createElement('div');
   allBtn.textContent = 'Tous';
   allBtn.classList.add('category');
   filterContainer.appendChild(allBtn);
 
   const allWorks = await loadWorks();
 
-allBtn.addEventListener('click', () => {
+  allBtn.addEventListener('click', () => {
     displayWorks(allWorks);
     setActiveFilter(allBtn);
   });
 
- categories.forEach(category => {
+  categories.forEach(category => {
     const btn = document.createElement('div');
     btn.textContent = category.name;
     btn.classList.add('category');
-     btn.classList.add(`category-${category.id}`);
+    btn.classList.add(`category-${category.id}`);
     filterContainer.appendChild(btn);
 
     btn.addEventListener('click', () => {

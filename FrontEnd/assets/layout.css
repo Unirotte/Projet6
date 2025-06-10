@@ -109,6 +109,11 @@ input#btn {
   cursor: pointer;
 }
 
+.gallery img {
+  height: 100%;
+  object-fit: cover;
+}
+
 footer nav ul {
   display: flex;
   justify-content: flex-end;
