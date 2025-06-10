@@ -114,6 +114,20 @@ input#btn {
   object-fit: cover;
 }
 
+.gallery {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  max-width: 1140px;
+  margin: auto;
+}
+
+.gallery img {
+  width: 100%;
+}
+
 footer nav ul {
   display: flex;
   justify-content: flex-end;

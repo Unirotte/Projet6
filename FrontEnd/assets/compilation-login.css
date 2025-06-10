@@ -1,4 +1,143 @@
-// HEADER
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+  background-color: #FFFEF8;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/** end reset css**/
+body {
+  max-width: 1440px;
+  margin: auto;
+  font-family: "Work Sans";
+  font-size: 14px;
+}
+
 h1 {
   display: flex;
   flex-direction: column;
@@ -7,6 +146,7 @@ h1 {
   font-weight: 800;
   color: #b1663c;
 }
+
 h1 > span {
   font-family: "Work Sans";
   font-size: 10px;
@@ -48,7 +188,6 @@ nav a.active {
 nav a:hover {
   text-decoration: underline;
 }
-// BUTTON
 
 #contact input,
 #connexion input {
@@ -58,7 +197,7 @@ nav a:hover {
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"] {
+input[type=submit] {
   font-family: "Syne";
   font-weight: 700;
   color: white;
@@ -111,27 +250,24 @@ input#btn {
 }
 
 .gallery img {
-    height: 100%;
-    object-fit: cover;
+  height: 100%;
+  object-fit: cover;
 }
 
 .gallery {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
-	max-width: 1140px;
-    margin: auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  max-width: 1140px;
+  margin: auto;
 }
 
 .gallery img {
-	width: 100%;
-
+  width: 100%;
 }
 
-
-// FOOTER
 footer nav ul {
   display: flex;
   justify-content: flex-end;
@@ -147,3 +283,25 @@ footer {
   margin: auto;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1140px;
+  margin: auto;
+  margin-top: 50px;
+}
+
+main {
+  margin: 10% 0;
+}
+
+a.mdp {
+  color: black;
+  font-weight: 500;
+}
+
+p#error {
+  color: red;
+  margin-bottom: 20px;
+  font-weight: bold;
+}/*# sourceMappingURL=compilation-login.css.map */
