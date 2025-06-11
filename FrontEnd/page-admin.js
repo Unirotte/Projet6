@@ -76,6 +76,8 @@ function displayGallery(works) {
   const gallery = document.querySelector('.gallery-modal');
   if (!gallery) return; // Vérification
 
+  backBtn.style.display = 'none';
+
   gallery.innerHTML = ''; // Nettoyage avant affichage
 
   works.forEach(work => {
@@ -122,6 +124,8 @@ async function deleteWork(id) {
   }
 }
 
+
+
 async function updateAllGalleries() {
   const works = await fetchGallery();
   displayGallery(works);
@@ -143,10 +147,9 @@ async function toggleModal() {
   }
 }
 
-
-
 newPictureBtn.addEventListener('click', () => {
   if (gallery) gallery.innerHTML = "";
+  backBtn.style.display = 'block';
   showFormView();
 });
 
@@ -217,7 +220,7 @@ function resetAddWorkForm() {
   imageInput.value = "";            // vide le input file (sinon le fichier reste sélectionné)
   previewImage.src = "";            // vide la preview de l'image
   previewImage.classList.add('hidden');  // cache l'image preview
- imageLabel.classList.remove("image-only");
+  imageLabel.classList.remove("image-only");
 }
 
 function showFormView() {
@@ -241,7 +244,7 @@ function previewImage(e) {
     reader.onload = function (e) {
       image.src = e.target.result;
       image.classList.remove("hidden");
-        label.classList.add("image-only");
+      label.classList.add("image-only");
     }
     reader.readAsDataURL(input.files[0]);
   } else {

@@ -50,8 +50,7 @@ header {
   display: block;
 }
 .gallery {
-    grid-row-gap: 30px;
-
+  grid-row-gap: 30px;
 }
 //MODAL GENERAL
 
@@ -104,6 +103,7 @@ button.back-to-gallery {
   top: 10px;
   border: none;
   background: none;
+  cursor: pointer;
 }
 
 .close-modal {
