@@ -57,8 +57,8 @@ const gallery = document.querySelector('.gallery-modal');
 const addWorkForm = document.getElementById('add-work-form');
 const titleInput = document.getElementById('textModal');
 const categorySelect = document.getElementById('selectModal');
+const closeModalBtn = document.querySelector('.close-modal');
 
-modalTrigger.forEach(trigger => trigger.addEventListener('click', toggleModal));
 
 async function fetchGallery() {
   try {
@@ -302,3 +302,25 @@ function updateValidateButtonState() {
 
 document.addEventListener('DOMContentLoaded', updateValidateButtonState);
 
+modalTrigger.forEach(trigger => trigger.addEventListener('click', toggleModal));
+closeModalBtn.addEventListener('click', () => {
+  closeModal(); // on appelle la fonction de fermeture proprement
+});
+
+function closeModal() {
+  //  Fermer la modale
+  modalContainer.classList.remove('active');
+
+  //  Réinitialiser le formulaire 
+  resetAddWorkForm();
+
+  //  Nettoyer les champs ajoutés 
+  const imagePreview = document.querySelector('.preview'); // adapte selon ta classe
+  if (imagePreview) imagePreview.innerHTML = '';
+
+  // Remet les active de la galerie de la modale 
+  addFormView.classList.remove('active');
+  galleryView.classList.add('active');
+  newPictureBtn.classList.remove('hidden');
+  validateBtn.classList.remove('active');
+}
