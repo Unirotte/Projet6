@@ -1,6 +1,6 @@
-import { fetchGallery, deleteWork, displayWorks, } from './api-admin.js';
+import { fetchGallery, deleteWork, } from './api-admin.js';
+import { displayWorks, } from './general.js';
 
-// Gestion du modal
 const modalContainer = document.querySelector('.modal-container');
 const modalTrigger = document.querySelectorAll('.modal-trigger');
 const galleryView = document.querySelector('.gallery-view');
@@ -13,7 +13,6 @@ const addWorkForm = document.getElementById('add-work-form');
 const titleInput = document.getElementById('textModal');
 const categorySelect = document.getElementById('selectModal');
 const closeModalBtn = document.querySelector('.close-modal');
-const publicGallery = document.querySelector('#gallery');
 
 // Modal de la galerie 
 

@@ -1,6 +1,6 @@
 export { fetchGallery, deleteWork, displayWorks };
 import { showGalleryView, updateAllGalleries } from './modal.js';
-
+import { displayWorks, setupNavigation } from './general.js';
 //TOKEN CONNEXION
 document.addEventListener('DOMContentLoaded', () => {
   const logLink = document.getElementById('Log');
@@ -98,26 +98,6 @@ async function deleteWork(id) {
   }
 }
 
-
 // Fonction pour afficher les œuvres
-function displayWorks(works) {
-  const gallery = document.getElementById('gallery');
-  if (!gallery) return; // Vérification pour éviter les erreurs
-
-  gallery.innerHTML = ''; // Nettoyage avant affichage
-
-  works.forEach(work => {
-    const figure = document.createElement('figure');
-
-    const img = document.createElement('img');
-    img.src = work.imageUrl;
-    img.alt = work.title;
-
-    const caption = document.createElement('figcaption');
-    caption.textContent = work.title;
-
-    figure.appendChild(img);
-    figure.appendChild(caption);
-    gallery.appendChild(figure);
-  });
-}
+displayWorks(works);
+setupNavigation(); // Appel de la fonction de navigation

@@ -1,3 +1,5 @@
+import { setupNavigation } from './general.js';
+
 const loginForm = document.querySelector('#connexion');
 
 loginForm.addEventListener('submit', async (event) => {
@@ -31,3 +33,5 @@ loginForm.addEventListener('submit', async (event) => {
   document.getElementById("error").textContent = "Erreur de connexion au serveur.";
 }
 });
+
+setupNavigation(); // Appel de la fonction de navigation

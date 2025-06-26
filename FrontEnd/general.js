@@ -1,4 +1,5 @@
 //Gestion de la navigation
+export function setupNavigation() {
 document.addEventListener('DOMContentLoaded', () => {
   const navLinks = document.querySelectorAll('nav a');
   navLinks.forEach(link => {
@@ -13,3 +14,38 @@ document.querySelectorAll('nav a').forEach(link => {
     link.classList.add('active');
   }
 });
+}
+
+//gallery
+function displayWorks(works, { withLink = false } = {}) {
+  const gallery = document.getElementById('gallery');
+  if (!gallery) return;
+
+  gallery.innerHTML = '';
+
+  works.forEach(work => {
+    const figure = document.createElement('figure');
+
+    const img = document.createElement('img');
+    img.src = work.imageUrl;
+    img.alt = work.title;
+
+    const caption = document.createElement('figcaption');
+    caption.textContent = work.title;
+
+    if (withLink) {
+      const link = document.createElement('a');
+      link.href = work.imageUrl;
+      link.target = '_blank';
+      link.appendChild(img);
+      figure.appendChild(link);
+    } else {
+      figure.appendChild(img);
+    }
+
+    figure.appendChild(caption);
+    gallery.appendChild(figure);
+  });
+}
+
+export { displayWorks };

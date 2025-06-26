@@ -1,34 +1,10 @@
-//Function de la galerie
-function displayWorks(works) {
-  const gallery = document.getElementById('gallery');
-  gallery.innerHTML = '';
+import { displayWorks, setupNavigation } from './general.js';
 
-  works.forEach(work => {
-    const figure = document.createElement('figure');
 
-    const link = document.createElement('a');
-    link.href = work.imageUrl; // URL de l'image en grand format
-    link.target = '_blank'; // Ouvre dans un nouvel onglet
-
-    const img = document.createElement('img');
-    img.src = work.imageUrl;
-    img.alt = work.title;
-
-    const caption = document.createElement('figcaption');
-    caption.textContent = work.title;
-
-    link.appendChild(img); // Ajoute l'image dans le lien
-    figure.appendChild(link); // Ajoute le lien dans la figure
-    figure.appendChild(caption); // Ajoute la légende
-
-    gallery.appendChild(figure); // Ajoute la figure à la galerie
-
-  });
-}
 async function loadWorks() {
   const response = await fetch('http://localhost:5678/api/works');
   const works = await response.json();
-  displayWorks(works);
+  displayWorks(works, { withLink: true });
   return works;
 }
 
@@ -75,4 +51,7 @@ function setActiveFilter(activeBtn) {
 
 loadWorks();
 loadCategories();
+setupNavigation(); // Appel de la fonction de navigation
+//Function de la galerie
+displayWorks(works, { withLink: true })
 
