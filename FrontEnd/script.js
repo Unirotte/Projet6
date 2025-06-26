@@ -1,4 +1,4 @@
-
+//Function de la galerie
 function displayWorks(works) {
   const gallery = document.getElementById('gallery');
   gallery.innerHTML = '';
@@ -32,6 +32,7 @@ async function loadWorks() {
   return works;
 }
 
+//function du filtre de la galerie
 async function loadCategories() {
   const response = await fetch('http://localhost:5678/api/categories');
   const categories = await response.json();
@@ -75,19 +76,3 @@ function setActiveFilter(activeBtn) {
 loadWorks();
 loadCategories();
 
-document.addEventListener('DOMContentLoaded', () => {
-  const navLinks = document.querySelectorAll('nav a');
-
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.forEach(l => l.classList.remove('active')); // Enlève l'active des autres
-      link.classList.add('active'); // Active le lien cliqué
-    });
-  });
-});
-
-document.querySelectorAll('nav a').forEach(link => {
-  if (window.location.href.includes(link.getAttribute('href'))) {
-    link.classList.add('active');
-  }
-});

@@ -19,7 +19,7 @@ loginForm.addEventListener('submit', async (event) => {
     if (response.ok) {
       const data = await response.json(); // Récupère le token et l'userId
       localStorage.setItem('token', data.token); // Stocke le token pour les prochaines requêtes
-      window.location.href = 'page-admin.html'; // Redirige vers la page utilisateur connecté (à créer toi-même)
+      window.location.href = 'page-admin.html'; // Redirige vers la page utilisateur connecté
   } else {
     const errorMsg = document.getElementById('error');
     errorMsg.textContent = 'Erreur de connexion : email ou mot de passe incorrect.';
@@ -30,20 +30,4 @@ loginForm.addEventListener('submit', async (event) => {
   console.error('Erreur lors de la requête :', error);
   document.getElementById("error").textContent = "Erreur de connexion au serveur.";
 }
-});
-document.addEventListener('DOMContentLoaded', () => {
-  const navLinks = document.querySelectorAll('nav a');
-
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.forEach(l => l.classList.remove('active')); // Enlève l'active des autres
-      link.classList.add('active'); // Active le lien cliqué
-    });
-  });
-});
-
-document.querySelectorAll('nav a').forEach(link => {
-  if (window.location.href.includes(link.getAttribute('href'))) {
-    link.classList.add('active');
-  }
 });
