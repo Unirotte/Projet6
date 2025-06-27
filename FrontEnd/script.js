@@ -24,9 +24,13 @@ async function loadCategories() {
   const allWorks = await loadWorks();
 
   allBtn.addEventListener('click', () => {
-    displayWorks(allWorks);
+    displayWorks(allWorks, { withLink: true });
     setActiveFilter(allBtn);
   });
+ 
+  // Selectionne le filtre "Tous" par défaut
+  displayWorks(allWorks, { withLink: true });
+  setActiveFilter(allBtn);
 
   categories.forEach(category => {
     const btn = document.createElement('div');
@@ -37,7 +41,7 @@ async function loadCategories() {
 
     btn.addEventListener('click', () => {
       const filtered = allWorks.filter(work => work.categoryId === category.id);
-      displayWorks(filtered);
+      displayWorks(filtered, { withLink: true });
       setActiveFilter(btn);
     });
   });
