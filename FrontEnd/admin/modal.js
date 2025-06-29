@@ -1,7 +1,26 @@
-import { deleteWork, } from './page-admin.js';
+
 import { fetchGallery, displayWorks, } from '../general.js';
 
+async function deleteWork(id) {
+  try {
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Accept': '*/*'
+      }
+    });
 
+    if (!response.ok) {
+      throw new Error(`Erreur de suppression (code ${response.status})`);
+    }
+    alert('Œuvre supprimer avec succès !');
+    console.log(`Œuvre ${id} supprimée`);
+  } catch (error) {
+    console.error('Erreur :', error);
+    alert("Échec de la suppression de l'œuvre.");
+  }
+}
 
 // Modal de la galerie 
 
@@ -27,7 +46,10 @@ function displayGallery(works) {
 
         deleteIcon.addEventListener('click', async () => {
             await deleteWork(work.id);
-            await updateAllGalleries();
+            const worksUpdate = works.filter((w) => w.id !== work.id);
+            displayGallery(worksUpdate)
+            displayWorks(worksUpdate)
+           
         });
 
         container.appendChild(img);
@@ -36,13 +58,6 @@ function displayGallery(works) {
     });
 }
 
-// Udpate new projects in gallery
-async function updateAllGalleries() {
-    const works = await fetchGallery();
-    displayGallery(works);
-    displayWorks(works);
-
-}
 
 //Affichage de la galerie d'ajout d'oeuvre
 function showGalleryView() {
@@ -189,5 +204,5 @@ document.addEventListener('DOMContentLoaded', updateValidateButtonState);
 export {
     resetAddWorkForm,
     showGalleryView,
-    updateAllGalleries
+    displayGallery,
 }

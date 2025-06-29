@@ -1,5 +1,5 @@
-import { showGalleryView, updateAllGalleries } from './modal.js';
-import { displayWorks, setupNavigation, fetchGallery } from '../general.js';
+import { showGalleryView, displayGallery } from './modal.js';
+import { displayWorks, setupNavigation, fetchGallery, } from '../general.js';
 
 //TOKEN CONNEXION
 document.addEventListener('DOMContentLoaded', async () => {
@@ -38,6 +38,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         //Message API pour l'ajout d'une œuvre
         const responseJson = await reponse.json(); // <-- récupère la réponse brute (même en cas d'erreur)
+        const updateGallery = [...works,responseJson]
+        displayGallery(updateGallery);
+        displayWorks(updateGallery);
+
         console.log("Réponse brute de l'API :", responseJson);
         if (!reponse.ok) {
           throw new Error("Erreur lors de l'ajout de l'œuvre.");
@@ -47,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         addWorkForm.reset();
         showGalleryView();
 
-        await updateAllGalleries();
+
 
       } catch (error) {
         console.error(error);
@@ -57,29 +61,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-//function de suppression avec l'api 
-async function deleteWork(id) {
-  try {
-    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Accept': '*/*'
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error(`Erreur de suppression (code ${response.status})`);
-    }
-    alert('Œuvre supprimer avec succès !');
-    console.log(`Œuvre ${id} supprimée`);
-  } catch (error) {
-    console.error('Erreur :', error);
-    alert("Échec de la suppression de l'œuvre.");
-  }
-}
 
 // Fonction pour afficher les œuvres
 setupNavigation(); // Appel de la fonction de navigation
-
-export { deleteWork, displayWorks };
