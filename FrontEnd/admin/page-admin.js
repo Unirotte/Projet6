@@ -1,8 +1,8 @@
-export { fetchGallery, deleteWork, displayWorks };
 import { showGalleryView, updateAllGalleries } from './modal.js';
-import { displayWorks, setupNavigation } from './general.js';
+import { displayWorks, setupNavigation, fetchGallery } from '../general.js';
+
 //TOKEN CONNEXION
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const logLink = document.getElementById('Log');
   const token = localStorage.getItem('token');
 
@@ -11,10 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
     logLink.addEventListener('click', (e) => {
       e.preventDefault();
       localStorage.removeItem('token'); // Supprime le token
-      window.location.href = 'login.html'; // Redirige vers la page d’accueil
+      window.location.href = '../login/login.html'; // Redirige vers la page d’accueil
     });
   }
 
+  const works = await fetchGallery()
+  displayWorks(works)
+  console.log(works)
   const addWorkForm = document.getElementById('add-work-form');
   if (addWorkForm) {
     addWorkForm.addEventListener('submit', async (e) => {
@@ -34,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         //Message API pour l'ajout d'une œuvre
-        const responseText = await reponse.text(); // <-- récupère la réponse brute (même en cas d'erreur)
-        console.log("Réponse brute de l'API :", responseText);
+        const responseJson = await reponse.json(); // <-- récupère la réponse brute (même en cas d'erreur)
+        console.log("Réponse brute de l'API :", responseJson);
         if (!reponse.ok) {
           throw new Error("Erreur lors de l'ajout de l'œuvre.");
         }
@@ -53,28 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-
-// Chargement des œuvres
-async function loadWorks() {
-  const response = await fetch('http://localhost:5678/api/works');
-  const works = await response.json();
-  displayWorks(works);
-  return works;
-}
-loadWorks();
-
-//API
-async function fetchGallery() {
-  try {
-    const response = await fetch('http://localhost:5678/api/works');
-    if (!response.ok) throw new Error('Erreur lors de la récupération des données');
-    const works = await response.json();
-    return works;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-}
 
 //function de suppression avec l'api 
 async function deleteWork(id) {
@@ -99,5 +80,6 @@ async function deleteWork(id) {
 }
 
 // Fonction pour afficher les œuvres
-displayWorks(works);
 setupNavigation(); // Appel de la fonction de navigation
+
+export { deleteWork, displayWorks };

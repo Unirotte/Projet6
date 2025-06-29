@@ -1,12 +1,5 @@
-import { displayWorks, setupNavigation } from './general.js';
+import { displayWorks, setupNavigation, fetchGallery } from './general.js';
 
-
-async function loadWorks() {
-  const response = await fetch('http://localhost:5678/api/works');
-  const works = await response.json();
-  displayWorks(works, { withLink: true });
-  return works;
-}
 
 //function du filtre de la galerie
 async function loadCategories() {
@@ -21,15 +14,15 @@ async function loadCategories() {
   allBtn.classList.add('category');
   filterContainer.appendChild(allBtn);
 
-  const allWorks = await loadWorks();
-
+  const works = await fetchGallery();
+ displayWorks(works, { withLink: true });
   allBtn.addEventListener('click', () => {
-    displayWorks(allWorks, { withLink: true });
+    
     setActiveFilter(allBtn);
   });
- 
+
   // Selectionne le filtre "Tous" par défaut
-  displayWorks(allWorks, { withLink: true });
+ 
   setActiveFilter(allBtn);
 
   categories.forEach(category => {
@@ -40,7 +33,7 @@ async function loadCategories() {
     filterContainer.appendChild(btn);
 
     btn.addEventListener('click', () => {
-      const filtered = allWorks.filter(work => work.categoryId === category.id);
+      const filtered = works.filter(work => work.categoryId === category.id);
       displayWorks(filtered, { withLink: true });
       setActiveFilter(btn);
     });
@@ -53,9 +46,6 @@ function setActiveFilter(activeBtn) {
   activeBtn.classList.add('active');
 }
 
-loadWorks();
 loadCategories();
 setupNavigation(); // Appel de la fonction de navigation
-//Function de la galerie
-displayWorks(works, { withLink: true })
 

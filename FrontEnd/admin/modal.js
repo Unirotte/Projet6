@@ -1,18 +1,7 @@
-import { fetchGallery, deleteWork, } from './api-admin.js';
-import { displayWorks, } from './general.js';
+import { deleteWork, } from './page-admin.js';
+import { fetchGallery, displayWorks, } from '../general.js';
 
-const modalContainer = document.querySelector('.modal-container');
-const modalTrigger = document.querySelectorAll('.modal-trigger');
-const galleryView = document.querySelector('.gallery-view');
-const addFormView = document.querySelector('.add-form-view');
-const newPictureBtn = document.querySelector('.New-Picture');
-const backBtn = document.querySelector('.back-to-gallery');
-const validateBtn = document.querySelector('.Valider');
-const gallery = document.querySelector('.gallery-modal');
-const addWorkForm = document.getElementById('add-work-form');
-const titleInput = document.getElementById('textModal');
-const categorySelect = document.getElementById('selectModal');
-const closeModalBtn = document.querySelector('.close-modal');
+
 
 // Modal de la galerie 
 
@@ -56,14 +45,12 @@ async function updateAllGalleries() {
 }
 
 //Affichage de la galerie d'ajout d'oeuvre
-async function showGalleryView() {
+function showGalleryView() {
     addFormView.classList.remove('active');
     galleryView.classList.add('active');
     newPictureBtn.classList.remove('hidden');
     validateBtn.classList.remove('active');
 
-    const works = await fetchGallery();
-    displayGallery(works);
 }
 
 //Vue d'ajout d'œuvre
@@ -132,6 +119,46 @@ function updateValidateButtonState() {
     }
 }
 
+function closeModal() {
+    //  Fermer la modale
+    modalContainer.classList.remove('active');
+
+    //  Réinitialiser le formulaire 
+    resetAddWorkForm();
+
+    //  Nettoyer les champs ajoutés 
+    const imagePreview = document.querySelector('.preview');
+    if (imagePreview) imagePreview.innerHTML = '';
+
+    // Remet les active de la galerie de la modale 
+    addFormView.classList.remove('active');
+    galleryView.classList.add('active');
+    newPictureBtn.classList.remove('hidden');
+    validateBtn.classList.remove('active');
+}
+
+async function toggleModal() {
+    modalContainer.classList.toggle('active');
+
+    if (modalContainer.classList.contains('active')) {
+        const works = await fetchGallery();
+        displayGallery(works);
+    }
+}
+
+const modalContainer = document.querySelector('.modal-container');
+const modalTrigger = document.querySelectorAll('.modal-trigger');
+const galleryView = document.querySelector('.gallery-view');
+const addFormView = document.querySelector('.add-form-view');
+const newPictureBtn = document.querySelector('.New-Picture');
+const backBtn = document.querySelector('.back-to-gallery');
+const validateBtn = document.querySelector('.Valider');
+const gallery = document.querySelector('.gallery-modal');
+const addWorkForm = document.getElementById('add-work-form');
+const titleInput = document.getElementById('textModal');
+const categorySelect = document.getElementById('selectModal');
+const closeModalBtn = document.querySelector('.close-modal'); 
+
 // Gestion pour le redémarrage propre du modal après ajout d'une image sans envoie 
 modalTrigger.forEach(trigger => trigger.addEventListener('click', toggleModal));
 closeModalBtn.addEventListener('click', () => {
@@ -158,32 +185,6 @@ document.getElementById("imageInput").addEventListener("change", previewImage);
 });
 document.addEventListener('DOMContentLoaded', updateValidateButtonState);
 
-async function toggleModal() {
-    modalContainer.classList.toggle('active');
-
-    if (modalContainer.classList.contains('active')) {
-        const works = await fetchGallery();
-        displayGallery(works);
-    }
-}
-
-function closeModal() {
-    //  Fermer la modale
-    modalContainer.classList.remove('active');
-
-    //  Réinitialiser le formulaire 
-    resetAddWorkForm();
-
-    //  Nettoyer les champs ajoutés 
-    const imagePreview = document.querySelector('.preview');
-    if (imagePreview) imagePreview.innerHTML = '';
-
-    // Remet les active de la galerie de la modale 
-    addFormView.classList.remove('active');
-    galleryView.classList.add('active');
-    newPictureBtn.classList.remove('hidden');
-    validateBtn.classList.remove('active');
-}
 
 export {
     resetAddWorkForm,
