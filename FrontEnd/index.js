@@ -15,14 +15,14 @@ async function loadCategories() {
   filterContainer.appendChild(allBtn);
 
   const works = await fetchGallery();
- displayWorks(works, { withLink: true });
+  displayWorks(works, { withLink: true });
   allBtn.addEventListener('click', () => {
-    
+    displayWorks(works, { withLink: true });
     setActiveFilter(allBtn);
   });
 
   // Selectionne le filtre "Tous" par défaut
- 
+
   setActiveFilter(allBtn);
 
   categories.forEach(category => {

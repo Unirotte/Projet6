@@ -2,24 +2,24 @@
 import { fetchGallery, displayWorks, } from '../general.js';
 
 async function deleteWork(id) {
-  try {
-    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Accept': '*/*'
-      }
-    });
+    try {
+        const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': '*/*'
+            }
+        });
 
-    if (!response.ok) {
-      throw new Error(`Erreur de suppression (code ${response.status})`);
+        if (!response.ok) {
+            throw new Error(`Erreur de suppression (code ${response.status})`);
+        }
+        alert('Œuvre supprimer avec succès !');
+        console.log(`Œuvre ${id} supprimée`);
+    } catch (error) {
+        console.error('Erreur :', error);
+        alert("Échec de la suppression de l'œuvre.");
     }
-    alert('Œuvre supprimer avec succès !');
-    console.log(`Œuvre ${id} supprimée`);
-  } catch (error) {
-    console.error('Erreur :', error);
-    alert("Échec de la suppression de l'œuvre.");
-  }
 }
 
 // Modal de la galerie 
@@ -49,7 +49,7 @@ function displayGallery(works) {
             const worksUpdate = works.filter((w) => w.id !== work.id);
             displayGallery(worksUpdate)
             displayWorks(worksUpdate)
-           
+
         });
 
         container.appendChild(img);
@@ -60,12 +60,14 @@ function displayGallery(works) {
 
 
 //Affichage de la galerie d'ajout d'oeuvre
-function showGalleryView() {
+async function showGalleryView() {
     addFormView.classList.remove('active');
     galleryView.classList.add('active');
     newPictureBtn.classList.remove('hidden');
     validateBtn.classList.remove('active');
-
+    
+    const works = await fetchGallery();
+    displayGallery(works);
 }
 
 //Vue d'ajout d'œuvre
@@ -172,7 +174,7 @@ const gallery = document.querySelector('.gallery-modal');
 const addWorkForm = document.getElementById('add-work-form');
 const titleInput = document.getElementById('textModal');
 const categorySelect = document.getElementById('selectModal');
-const closeModalBtn = document.querySelector('.close-modal'); 
+const closeModalBtn = document.querySelector('.close-modal');
 
 // Gestion pour le redémarrage propre du modal après ajout d'une image sans envoie 
 modalTrigger.forEach(trigger => trigger.addEventListener('click', toggleModal));
