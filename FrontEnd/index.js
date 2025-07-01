@@ -46,6 +46,20 @@ function setActiveFilter(activeBtn) {
   activeBtn.classList.add('active');
 }
 
+//scroll en direction de la section
+document.addEventListener('DOMContentLoaded', () => {
+  const contactScroll = window.location.hash; //trouve le #contact grâce au w.l.hash 
+  if (contactScroll) {
+    const ancre = document.querySelector(contactScroll);
+    if (ancre) {
+      // attendre un petit délai que le contenu soit bien chargé
+      setTimeout(() => {
+        ancre.scrollIntoView({ behavior: 'smooth' });
+      }, 300); 
+    }
+  }
+});
+
 loadCategories();
 setupNavigation(); // Appel de la fonction de navigation
 
