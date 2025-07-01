@@ -105,6 +105,7 @@ button.back-to-gallery {
   top: 10px;
   border: none;
   background: none;
+  cursor: pointer;
 }
 
 .close-modal {
