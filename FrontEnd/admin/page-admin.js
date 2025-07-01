@@ -41,18 +41,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         const updateGallery = [...works,responseJson]
         displayGallery(updateGallery);
         displayWorks(updateGallery);
-
         console.log("Réponse brute de l'API :", responseJson);
         if (!reponse.ok) {
           throw new Error("Erreur lors de l'ajout de l'œuvre.");
         }
-
         alert('Œuvre ajoutée avec succès !');
         addWorkForm.reset();
         showGalleryView();
-
-
-
       } catch (error) {
         console.error(error);
         alert('Erreur lors de l’ajout de l’œuvre. Veuillez réessayer.');
@@ -62,5 +57,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
-// Fonction pour afficher les œuvres
 setupNavigation(); // Appel de la fonction de navigation

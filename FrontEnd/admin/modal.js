@@ -1,6 +1,19 @@
-
 import { fetchGallery, displayWorks, } from '../general.js';
 
+const modalContainer = document.querySelector('.modal-container');
+const modalTrigger = document.querySelectorAll('.modal-trigger');
+const galleryView = document.querySelector('.gallery-view');
+const addFormView = document.querySelector('.add-form-view');
+const newPictureBtn = document.querySelector('.New-Picture');
+const backBtn = document.querySelector('.back-to-gallery');
+const validateBtn = document.querySelector('.Valider');
+const gallery = document.querySelector('.gallery-modal');
+const addWorkForm = document.getElementById('add-work-form');
+const titleInput = document.getElementById('textModal');
+const categorySelect = document.getElementById('selectModal');
+const closeModalBtn = document.querySelector('.close-modal');
+
+//Supprimer une oeuvre 
 async function deleteWork(id) {
     try {
         const response = await fetch(`http://localhost:5678/api/works/${id}`, {
@@ -21,8 +34,6 @@ async function deleteWork(id) {
         alert("Échec de la suppression de l'œuvre.");
     }
 }
-
-// Modal de la galerie 
 
 //Galery modal + trash 
 function displayGallery(works) {
@@ -58,7 +69,6 @@ function displayGallery(works) {
     });
 }
 
-
 //Affichage de la galerie d'ajout d'oeuvre
 async function showGalleryView() {
     addFormView.classList.remove('active');
@@ -69,8 +79,6 @@ async function showGalleryView() {
     const works = await fetchGallery();
     displayGallery(works);
 }
-
-//Vue d'ajout d'œuvre
 
 //reactive la galerie avec la poubelle 
 function showFormView() {
@@ -136,6 +144,7 @@ function updateValidateButtonState() {
     }
 }
 
+//croix 
 function closeModal() {
     //  Fermer la modale
     modalContainer.classList.remove('active');
@@ -154,6 +163,7 @@ function closeModal() {
     validateBtn.classList.remove('active');
 }
 
+//function ouverture / Fermeture de la modal
 async function toggleModal() {
     modalContainer.classList.toggle('active');
 
@@ -163,19 +173,7 @@ async function toggleModal() {
     }
 }
 
-const modalContainer = document.querySelector('.modal-container');
-const modalTrigger = document.querySelectorAll('.modal-trigger');
-const galleryView = document.querySelector('.gallery-view');
-const addFormView = document.querySelector('.add-form-view');
-const newPictureBtn = document.querySelector('.New-Picture');
-const backBtn = document.querySelector('.back-to-gallery');
-const validateBtn = document.querySelector('.Valider');
-const gallery = document.querySelector('.gallery-modal');
-const addWorkForm = document.getElementById('add-work-form');
-const titleInput = document.getElementById('textModal');
-const categorySelect = document.getElementById('selectModal');
-const closeModalBtn = document.querySelector('.close-modal');
-
+// ========== ÉVÉNEMENTS ========== //
 // Gestion pour le redémarrage propre du modal après ajout d'une image sans envoie 
 modalTrigger.forEach(trigger => trigger.addEventListener('click', toggleModal));
 closeModalBtn.addEventListener('click', () => {
@@ -202,7 +200,7 @@ document.getElementById("imageInput").addEventListener("change", previewImage);
 });
 document.addEventListener('DOMContentLoaded', updateValidateButtonState);
 
-
+// ========== EXPORTS ========== //
 export {
     resetAddWorkForm,
     showGalleryView,
