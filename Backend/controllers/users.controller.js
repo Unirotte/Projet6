@@ -1,7 +1,7 @@
 const db = require('./../models');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const Users = db.users;
+const bcrypt = require('bcrypt'); //permet de chiffrer (hasher) les mots de passe de manière sécurisée.
+const jwt = require('jsonwebtoken'); //bibliothèque pour générer des tokens JWT
+const Users = db.users; // récupère le modèle users depuis les models (donc la table "utilisateurs" dans ta base de données).
 
 exports.signup = async (req, res) => {
 	if(!req.body.email || !req.body.password){
@@ -9,20 +9,21 @@ exports.signup = async (req, res) => {
 			message: "Must have email and password"
 		});
 	}
+	//verifie que tout et bien rentré mail et mdp sinon message erreur
 	try{
-		const hash = await bcrypt.hash(req.body.password, 10)
+		const hash = await bcrypt.hash(req.body.password, 10) //chiffre le mdp / 10 = le plus haut niveau de secu
 		const user = {
 			email: req.body.email,
 			password: hash
 		}
-		await Users.create(user)
+		await Users.create(user) // enregistre les données de user avec users.create
 		return res.status(201).json({message: 'User Created'})
 	}catch (err){
 		return res.status(500).send({
 			message: err.message
 		});
 	}
-
+//si tout et bon on envoie le message crée sinon message erreur
 }
 
 exports.login = async (req, res) => {
