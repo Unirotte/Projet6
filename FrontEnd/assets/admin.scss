@@ -1,14 +1,8 @@
 header {
-  display: block;
-  margin-top: 0;
-  max-width: 1440px;
-  section.header-base {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1140px;
-    margin: auto;
-    margin-top: 50px;
-  }
+  justify-content: space-between;
+  max-width: 1140px;
+  margin: auto;
+  margin-top: 0px;
 }
 
 .edit {
@@ -33,10 +27,10 @@ header {
   justify-content: center;
 }
 
-.edit-Projet {
+.edit-projet.admin-only {
   display: flex;
-  gap: 10px;
   align-items: center;
+  gap: 10px;
 }
 
 #portfolio h2 {

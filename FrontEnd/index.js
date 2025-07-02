@@ -1,6 +1,38 @@
 import { displayWorks, setupNavigation, fetchGallery } from './general.js';
+import { initGalleryAdmin,
+} from './admin/modal.js';
 
 
+//TOKEN CONNEXION
+const token = localStorage.getItem('token');
+document.addEventListener('DOMContentLoaded', async () => {
+  const logLink = document.getElementById('Log');
+
+  // gère le bouton login/logout
+  if (token && logLink) {
+    logLink.textContent = 'logout';
+    logLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      localStorage.removeItem('token'); // Supprime le token
+      window.location.href = './login/login.html'; // Redirige vers la page d’accueil
+    });
+  }
+
+  if (token) {
+    document.querySelectorAll('.admin-only').forEach(el => el.computedStyleMap.display = 'block');
+    document.getElementById('filter').style.display = 'none';
+    const { initGalleryAdmin } = await import('./admin/modal.js');
+    await initGalleryAdmin(displayWorks); //appel de la function de mise a jour de la galerie
+
+  } else {
+    document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
+    await loadCategories();
+  }
+
+  setupNavigation();
+});
+
+// --------- Fonction galerie publique avec filtres ---------
 //function du filtre de la galerie
 async function loadCategories() {
   const response = await fetch('http://localhost:5678/api/categories');
@@ -55,11 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
       // attendre un petit délai que le contenu soit bien chargé
       setTimeout(() => {
         ancre.scrollIntoView({ behavior: 'smooth' });
-      }, 300); 
+      }, 300);
     }
   }
 });
 
-loadCategories();
+initGalleryAdmin();
 setupNavigation(); // Appel de la fonction de navigation
 

@@ -9,22 +9,28 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
+	<script src="https://kit.fontawesome.com/c6992036be.js" crossorigin="anonymous"></script>
 	<meta name="description" content="">
+	<link rel="stylesheet" href="./assets/style.css">
 	<link rel="stylesheet" href="./assets/compilation-public.css">
+	<link rel="stylesheet" href="./assets/admin.css">
 	<script type="module" src="index.js"></script>
 </head>
 
 <body>
 	<header>
-		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-		<nav>
-			<ul>
-				<li><a href="index.html">projets</a></li>
-				<li><a href="#contact">contact</a></li>
-				<li><a href="login/login.html">login</a></li>
-				<li><img src="./assets/icons/instagram.png" alt="Instagram" class="insta"></li>
-			</ul>
-		</nav>
+		<div class="edit admin-only"><i class="fa-regular fa-pen-to-square"></i>Mode édition</div>
+		<section class="header-base">
+			<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+			<nav>
+				<ul>
+					<li><a href="index.html#portfolio">projets</a></li>
+					<li><a href="#contact">contact</a></li>
+					<li><a href="login/login.html" id="Log">login</a></li>
+					<li><img src="./assets/icons/instagram.png" alt="Instagram" class="insta"></li>
+				</ul>
+			</nav>
+		</section>
 	</header>
 	<main>
 		<section id="introduction">
@@ -43,8 +49,62 @@
 			</article>
 		</section>
 		<section id="portfolio">
-			<h2>Mes Projets</h2>
+			<div class="edit-title ">
+				<h2>Mes Projets</h2>
+				<div class="edit-projet admin-only">
+					<i class="fa-regular fa-pen-to-square fa-lg"></i>
+					<button class="btn-modif modal-trigger">modifier</button>
+				</div>
+			</div>
+
 			<div id="filter"></div>
+			<!-- paramaître des modal -->
+			<div class="modal-container admin-only">
+				<div class="overlay modal-trigger"></div>
+
+				<div class="modal">
+					<div class="modal-view gallery-view active">
+						<h3 class="title-modal">Galerie photo</h3>
+						<div class="gallery-modal"></div>
+						<button class="New-Picture">Ajouter une photo</button>
+					</div>
+
+					<div class="modal-view add-form-view">
+						<h3 class="title-modal">Ajout Photo</h3>
+						<form id="add-work-form">
+
+							<div class="img-upload">
+								<input type="file" name="image" id="imageInput" accept="image/*" required>
+								<label id="imageLabel" for="imageInput" class="image-label">
+									<img id="preview" src="" alt="" class="hidden">
+									<span>
+										<div class="imgNewBtn"><i class="fa-solid fa-image fa-2xl"></i></div>
+										<div class="positionNewImg">
+											<span class="newBtn"><i class="fa-solid fa-plus"></i>Ajouter photo</span>
+											<p> jpg, png : 4mo max</p>
+										</div>
+									</span>
+								</label>
+							</div>
+							<div class="position-category">
+
+								<label for="selectModal">Titre</label>
+								<input type="text" id="textModal" name="title" required>
+								<label for="selectModal">Catégorie</label>
+								<select required id="selectModal" name="category">
+									<option value="" disabled selected hidden></option>
+									<option value="1">Objets</option>
+									<option value="2">Appartements</option>
+									<option value="3">Hotels & restaurants</option>
+								</select>
+							</div>
+							<div class="valid"><button type="submit" class="Valider">Valider</button></div>
+						</form>
+					</div>
+					<button class="close-modal modal-trigger"><i class="fa-solid fa-xmark fa-lg"></i></button>
+					<button class="back-to-gallery"><i class="fa-solid fa-arrow-left fa-xl"></i></button>
+				</div>
+			</div>
 			<section id="gallery" class="gallery"></section>
 		</section>
 		<section id="contact">
@@ -69,7 +129,6 @@
 			</ul>
 		</nav>
 	</footer>
-	<!-- Lien vers le script JS -->
 
 </body>
 

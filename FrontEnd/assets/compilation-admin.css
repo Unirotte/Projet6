@@ -291,11 +291,6 @@ footer {
 }
 
 header {
-  display: block;
-  margin-top: 0;
-  max-width: 1440px;
-}
-header section.header-base {
   display: flex;
   justify-content: space-between;
   max-width: 1140px;

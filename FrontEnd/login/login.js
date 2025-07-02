@@ -20,7 +20,7 @@ loginForm.addEventListener('submit', async (event) => {
     if (response.ok) {
       const data = await response.json(); // Récupère le token et l'userId
       localStorage.setItem('token', data.token); // Stocke le token pour les prochaines requêtes
-      window.location.href = '../admin/page-admin.html'; // Redirige vers la page utilisateur connecté
+      window.location.href = '../index.html'; // Redirige vers la page utilisateur connecté
   } else {
     const errorMsg = document.getElementById('error');
     errorMsg.textContent = 'Erreur de connexion : email ou mot de passe incorrect.';
