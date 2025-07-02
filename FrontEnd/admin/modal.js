@@ -75,7 +75,7 @@ async function showGalleryView() {
     galleryView.classList.add('active');
     newPictureBtn.classList.remove('hidden');
     validateBtn.classList.remove('active');
-    
+
     const works = await fetchGallery();
     displayGallery(works);
 }
@@ -88,6 +88,8 @@ function showFormView() {
     validateBtn.classList.add('active');
     resetAddWorkForm();
 }
+
+// === FONCTIONS DE GESTION DU FORMULAIRE ===
 
 // Vide tout les champs de l'ajout d'oeuvre et remove en cas de retour en arrière
 function resetAddWorkForm() {
@@ -173,6 +175,53 @@ async function toggleModal() {
     }
 }
 
+// === INITIALISATION ===
+// Initialisation de la galerie admin, gestion ajout d’œuvre
+async function initGalleryAdmin(displayWorks) {
+    const works = await fetchGallery();
+    displayWorks(works);
+
+    const addWorkForm = document.getElementById('add-work-form');
+    if (addWorkForm) {
+        addWorkForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(addWorkForm);
+            try {
+                for (let [key, value] of formData.entries()) {
+                    console.log(`${key}:`, value);
+                }
+
+                const reponse = await fetch('http://localhost:5678/api/works', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: formData
+                });
+
+                const responseJson = await reponse.json();
+                const updateGallery = [...works, responseJson];
+
+                displayGallery(updateGallery);
+                displayWorks(updateGallery);
+                console.log("Réponse brute de l'API :", responseJson);
+
+                if (!reponse.ok) {
+                    throw new Error("Erreur lors de l'ajout de l'œuvre.");
+                }
+
+                alert('Œuvre ajoutée avec succès !');
+                addWorkForm.reset();
+                showGalleryView();
+            } catch (error) {
+                console.error(error);
+                alert('Erreur lors de l’ajout de l’œuvre. Veuillez réessayer.');
+            }
+        });
+    }
+}
+
 // ========== ÉVÉNEMENTS ========== //
 // Gestion pour le redémarrage propre du modal après ajout d'une image sans envoie 
 modalTrigger.forEach(trigger => trigger.addEventListener('click', toggleModal));
@@ -205,4 +254,5 @@ export {
     resetAddWorkForm,
     showGalleryView,
     displayGallery,
+    initGalleryAdmin,
 }
