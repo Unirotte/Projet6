@@ -1,8 +1,14 @@
-header {
-  justify-content: space-between;
-  max-width: 1140px;
+section.header-base {
   margin: auto;
-  margin-top: 0px;
+  margin-top: 30px;
+}
+
+.positionLogo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  bottom: 19px;
 }
 
 .edit {
@@ -226,6 +232,7 @@ img#preview {
 .imgNewBtn,
 .positionNewImg {
   z-index: 2;
+  cursor: pointer;
 }
 
 .imgNewBtn {

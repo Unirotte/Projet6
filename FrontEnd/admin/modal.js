@@ -104,6 +104,7 @@ function resetAddWorkForm() {
     previewImage.src = "";            // vide la preview de l'image
     previewImage.classList.add('hidden');  // cache l'image preview
     imageLabel.classList.remove("image-only");
+    updateValidateButtonState(); // met à jour l'état du bouton valider
 }
 
 // Gestion de l'aperçu de l'image dans le modal d'ajout d'œuvre
@@ -238,6 +239,7 @@ newPictureBtn.addEventListener('click', () => {
 
 document.getElementById('imageInput').addEventListener('click', (e) => {
     e.target.value = ''; // réinitialise la valeur pour autoriser un nouveau choix
+    
 });
 
 document.getElementById("imageInput").addEventListener("change", previewImage);

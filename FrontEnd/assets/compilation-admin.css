@@ -291,11 +291,18 @@ footer {
 }
 
 header {
-  display: flex;
   justify-content: space-between;
   max-width: 1140px;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 0px;
+}
+
+.positionLogo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  bottom: 19px;
 }
 
 .edit {
@@ -318,10 +325,10 @@ header {
   justify-content: center;
 }
 
-.edit-Projet {
+.edit-projet.admin-only {
   display: flex;
-  gap: 10px;
   align-items: center;
+  gap: 10px;
 }
 
 #portfolio h2 {
@@ -520,6 +527,7 @@ img#preview {
 .imgNewBtn,
 .positionNewImg {
   z-index: 2;
+  cursor: pointer;
 }
 
 .imgNewBtn {

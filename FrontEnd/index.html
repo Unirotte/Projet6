@@ -76,14 +76,14 @@
 							<div class="img-upload">
 								<input type="file" name="image" id="imageInput" accept="image/*" required>
 								<label id="imageLabel" for="imageInput" class="image-label">
-									<img id="preview" src="" alt="" class="hidden">
-									<span>
-										<div class="imgNewBtn"><i class="fa-solid fa-image fa-2xl"></i></div>
-										<div class="positionNewImg">
+									<img id="preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="" class="hidden">
+									
+										<span class="imgNewBtn"><i class="fa-solid fa-image fa-2xl"></i></span>
+										<span class="positionNewImg">
 											<span class="newBtn"><i class="fa-solid fa-plus"></i>Ajouter photo</span>
-											<p> jpg, png : 4mo max</p>
-										</div>
-									</span>
+											<span class="p"> jpg, png : 4mo max</span>
+										</span>
+									
 								</label>
 							</div>
 							<div class="position-category">
@@ -91,8 +91,9 @@
 								<label for="selectModal">Titre</label>
 								<input type="text" id="textModal" name="title" required>
 								<label for="selectModal">Catégorie</label>
-								<select required id="selectModal" name="category">
-									<option value="" disabled selected hidden></option>
+								<select required name="category" id="selectModal">
+									<option value="" disabled selected hidden>&#8203;<!--caractère invisible-->
+									</option>
 									<option value="1">Objets</option>
 									<option value="2">Appartements</option>
 									<option value="3">Hotels & restaurants</option>
