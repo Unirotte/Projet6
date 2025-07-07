@@ -28,20 +28,31 @@ async function deleteWork(id) {
             throw new Error(`Erreur de suppression (code ${response.status})`);
         }
         alert('Œuvre supprimer avec succès !');
-        console.log(`Œuvre ${id} supprimée`);
+
     } catch (error) {
         console.error('Erreur :', error);
         alert("Échec de la suppression de l'œuvre.");
     }
 }
 
+async function updateGallery(withLink = false) {
+    try {
+        const works = await fetchGallery();
+        displayWorks(works, withLink);
+    } catch (error) {
+        console.error("Erreur lors du chargement de la galerie :", error);
+    }
+}
+
 //Galery modal + trash 
 function displayGallery(works) {
-    if (!gallery) return; // Vérification
 
+    if (!gallery) {
+        console.warn("Élément .gallery-modal introuvable !");
+        return;
+    }
+    gallery.innerHTML = "";
     backBtn.style.display = 'none';
-
-    gallery.innerHTML = ''; // Nettoyage avant affichage
 
     works.forEach(work => {
         const container = document.createElement('div');
@@ -57,10 +68,9 @@ function displayGallery(works) {
 
         deleteIcon.addEventListener('click', async () => {
             await deleteWork(work.id);
-            const worksUpdate = works.filter((w) => w.id !== work.id);
-            displayGallery(worksUpdate)
-            displayWorks(worksUpdate)
-
+            const updatedWorks = await fetchGallery();
+            showGalleryView(); // Réafficher la galerie après suppression
+            displayWorks(updatedWorks, { withLink: true });
         });
 
         container.appendChild(img);
@@ -77,6 +87,7 @@ async function showGalleryView() {
     validateBtn.classList.remove('active');
 
     const works = await fetchGallery();
+    gallery.innerHTML = "";
     displayGallery(works);
 }
 
@@ -172,15 +183,15 @@ async function toggleModal() {
 
     if (modalContainer.classList.contains('active')) {
         const works = await fetchGallery();
+
         displayGallery(works);
     }
 }
 
 // === INITIALISATION ===
 // Initialisation de la galerie admin, gestion ajout d’œuvre
-async function initGalleryAdmin(displayWorks) {
-    const works = await fetchGallery();
-    displayWorks(works);
+async function initGalleryAdmin() {
+    await updateGallery(true);
 
     const addWorkForm = document.getElementById('add-work-form');
     if (addWorkForm) {
@@ -188,11 +199,8 @@ async function initGalleryAdmin(displayWorks) {
             e.preventDefault();
 
             const formData = new FormData(addWorkForm);
-            try {
-                for (let [key, value] of formData.entries()) {
-                    console.log(`${key}:`, value);
-                }
 
+            try {
                 const reponse = await fetch('http://localhost:5678/api/works', {
                     method: 'POST',
                     headers: {
@@ -201,20 +209,19 @@ async function initGalleryAdmin(displayWorks) {
                     body: formData
                 });
 
-                const responseJson = await reponse.json();
-                const updateGallery = [...works, responseJson];
-
-                displayGallery(updateGallery);
-                displayWorks(updateGallery);
-                console.log("Réponse brute de l'API :", responseJson);
-
                 if (!reponse.ok) {
                     throw new Error("Erreur lors de l'ajout de l'œuvre.");
                 }
 
                 alert('Œuvre ajoutée avec succès !');
                 addWorkForm.reset();
+
+                const updatedWorks = await fetchGallery()
+                displayWorks(updatedWorks, true);
+                displayGallery(updatedWorks);
                 showGalleryView();
+
+
             } catch (error) {
                 console.error(error);
                 alert('Erreur lors de l’ajout de l’œuvre. Veuillez réessayer.');
@@ -239,7 +246,7 @@ newPictureBtn.addEventListener('click', () => {
 
 document.getElementById('imageInput').addEventListener('click', (e) => {
     e.target.value = ''; // réinitialise la valeur pour autoriser un nouveau choix
-    
+
 });
 
 document.getElementById("imageInput").addEventListener("change", previewImage);
@@ -258,3 +265,4 @@ export {
     displayGallery,
     initGalleryAdmin,
 }
+

@@ -63,5 +63,4 @@ async function fetchGallery() {
 }
 
 
-
 export { displayWorks, fetchGallery };
