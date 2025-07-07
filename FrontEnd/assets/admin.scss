@@ -296,9 +296,11 @@ select#selectModal {
 }
 
 .valid {
+  border-top: #b3b3b3 1px solid;
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 25px;
+  padding-top: 25px;
 }
 
 .Valider:disabled {

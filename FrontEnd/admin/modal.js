@@ -46,7 +46,6 @@ async function updateGallery(withLink = false) {
 
 //Galery modal + trash 
 function displayGallery(works) {
-
     if (!gallery) {
         console.warn("Élément .gallery-modal introuvable !");
         return;
@@ -69,7 +68,7 @@ function displayGallery(works) {
         deleteIcon.addEventListener('click', async () => {
             await deleteWork(work.id);
             const updatedWorks = await fetchGallery();
-            showGalleryView(); // Réafficher la galerie après suppression
+            showGalleryView(updatedWorks); // Réafficher la galerie après suppression
             displayWorks(updatedWorks, { withLink: true });
         });
 
@@ -80,15 +79,15 @@ function displayGallery(works) {
 }
 
 //Affichage de la galerie d'ajout d'oeuvre
-async function showGalleryView() {
+async function showGalleryView(works = null) {
     addFormView.classList.remove('active');
     galleryView.classList.add('active');
     newPictureBtn.classList.remove('hidden');
     validateBtn.classList.remove('active');
 
-    const works = await fetchGallery();
     gallery.innerHTML = "";
-    displayGallery(works);
+    const galleryWorks = works || await fetchGallery();
+    displayGallery(galleryWorks);
 }
 
 //reactive la galerie avec la poubelle 
@@ -183,8 +182,7 @@ async function toggleModal() {
 
     if (modalContainer.classList.contains('active')) {
         const works = await fetchGallery();
-
-        displayGallery(works);
+        showGalleryView(works);
     }
 }
 
@@ -219,7 +217,7 @@ async function initGalleryAdmin() {
                 const updatedWorks = await fetchGallery()
                 displayWorks(updatedWorks, true);
                 displayGallery(updatedWorks);
-                showGalleryView();
+                showGalleryView(updatedWorks);
 
 
             } catch (error) {
@@ -236,7 +234,10 @@ modalTrigger.forEach(trigger => trigger.addEventListener('click', toggleModal));
 closeModalBtn.addEventListener('click', () => {
     closeModal(); // on appelle la fonction de fermeture proprement
 });
-backBtn.addEventListener('click', showGalleryView);
+backBtn.addEventListener('click', async () => {
+    const updatedWorks = await fetchGallery();
+    showGalleryView(updatedWorks);
+});
 //Ajout du bouton retour dans la modal d'ajour d'oeuvre
 newPictureBtn.addEventListener('click', () => {
     if (gallery) gallery.innerHTML = "";

@@ -1,6 +1,4 @@
 import { displayWorks, setupNavigation, fetchGallery } from './general.js';
-import { initGalleryAdmin,
-} from './admin/modal.js';
 
 //TOKEN CONNEXION
 const token = localStorage.getItem('token');
