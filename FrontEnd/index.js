@@ -89,4 +89,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-setupNavigation(); // Appel de la fonction de navigation
+// setupNavigation(); // Appel de la fonction de navigation

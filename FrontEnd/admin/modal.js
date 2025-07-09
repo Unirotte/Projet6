@@ -13,6 +13,7 @@ const titleInput = document.getElementById('textModal');
 const categorySelect = document.getElementById('selectModal');
 const closeModalBtn = document.querySelector('.close-modal');
 
+
 //Supprimer une oeuvre 
 async function deleteWork(id) {
     try {
@@ -26,7 +27,7 @@ async function deleteWork(id) {
 
         if (!response.ok) {
             throw new Error(`Erreur de suppression (code ${response.status})`);
-        }
+        }console.log("suppression d'œuvre réussi")
         alert('Œuvre supprimer avec succès !');
 
     } catch (error) {
@@ -191,9 +192,9 @@ async function toggleModal() {
 async function initGalleryAdmin() {
     await updateGallery(true);
 
-    const addWorkForm = document.getElementById('add-work-form');
     if (addWorkForm) {
         addWorkForm.addEventListener('submit', async (e) => {
+            console.log("Soumission du formulaire interceptée !");
             e.preventDefault();
 
             const formData = new FormData(addWorkForm);
@@ -210,9 +211,10 @@ async function initGalleryAdmin() {
                 if (!reponse.ok) {
                     throw new Error("Erreur lors de l'ajout de l'œuvre.");
                 }
-
+                console.log("Ajout d'œuvre réussi")
                 alert('Œuvre ajoutée avec succès !');
                 addWorkForm.reset();
+                console.log("reset terminé");
 
                 const updatedWorks = await fetchGallery()
                 displayWorks(updatedWorks, true);
