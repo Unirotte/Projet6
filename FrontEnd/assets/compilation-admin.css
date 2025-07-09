@@ -591,7 +591,7 @@ select#selectModal {
 }
 
 .valid {
-  border-top: #b3b3b3 3px solid;
+  border-top: #b3b3b3 1px solid;
   display: flex;
   justify-content: center;
   margin-top: 25px;

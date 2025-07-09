@@ -98,6 +98,10 @@ article.presentation {
 	cursor: pointer;
 }
 
+body.hide-admin .admin-only {
+  display: none !important;
+}
+
 #all,
 #Objects {
 	width: 100px;

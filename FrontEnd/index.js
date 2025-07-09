@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   if (token) {
-    document.querySelectorAll('.admin-only').forEach(el => el.computedStyleMap.display = 'block');
+    document.body.classList.remove('hide-admin');
     document.getElementById('filter').style.display = 'none';
     const { initGalleryAdmin } = await import('./admin/modal.js');
     await initGalleryAdmin(displayWorks); //appel de la function de mise a jour de la galerie
@@ -89,4 +89,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// setupNavigation(); // Appel de la fonction de navigation
+setupNavigation(); // Appel de la fonction de navigation
