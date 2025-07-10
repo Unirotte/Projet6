@@ -24,7 +24,6 @@ loginForm.addEventListener('submit', async (event) => {
   } else {
     const errorMsg = document.getElementById('error');
     errorMsg.textContent = 'Erreur de connexion : email ou mot de passe incorrect.';
-    errorMsg.style.color = 'red';
   }
 
 } catch (error) {
