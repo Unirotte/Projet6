@@ -2,7 +2,7 @@ import { setupNavigation } from '../general.js';
 
 const loginForm = document.querySelector('#connexion');
 loginForm.addEventListener('submit', async (event) => {
-  event.preventDefault(); // Empêche le rechargement de la page quand on clic sur submit.
+  event.preventDefault(); // Prevents the page from reloading when clicking submit.
 
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
@@ -14,13 +14,13 @@ loginForm.addEventListener('submit', async (event) => {
         'Content-Type': 'application/json',
         'accept': 'application/json'
       },
-      body: JSON.stringify({ email, password }) // On transforme les données en texte JSON
+      body: JSON.stringify({ email, password }) // Converts the data to JSON text
     });
 
     if (response.ok) {
-      const data = await response.json(); // Récupère le token et l'userId
-      localStorage.setItem('token', data.token); // Stocke le token pour les prochaines requêtes
-      window.location.href = '../index.html'; // Redirige vers la page utilisateur connecté
+      const data = await response.json(); // Retrieves the token and userId
+      localStorage.setItem('token', data.token); // Stores the token for future requests
+      window.location.href = '../index.html'; // Redirects to the connected user page
   } else {
     const errorMsg = document.getElementById('error');
     errorMsg.textContent = 'Erreur de connexion : email ou mot de passe incorrect.';
@@ -32,4 +32,4 @@ loginForm.addEventListener('submit', async (event) => {
 }
 });
 
-setupNavigation(); // Appel de la fonction de navigation
+setupNavigation(); // Call the navigation function

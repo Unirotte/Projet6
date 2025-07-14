@@ -1,15 +1,15 @@
-//Gestion de la navigation
+//Navigation management
 export function setupNavigation() {
   document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('nav a');
    
     navLinks.forEach(link => {   
       link.addEventListener('click', () => {
-        navLinks.forEach(l => l.classList.remove('active')); // Enlève l'active des autres
-        link.classList.add('active'); // Active le lien cliqué
+        navLinks.forEach(l => l.classList.remove('active')); // Remove 'active' from others
+        link.classList.add('active'); // Activate the clicked link
       });
     });
-    //active le lien correspondant à la page au chargement
+    //Activate the link corresponding to the page on load
     navLinks.forEach(link => {
       if (window.location.pathname.includes(link.getAttribute('href'))) {
         link.classList.add('active');
@@ -18,7 +18,7 @@ export function setupNavigation() {
   });
 }
 
-//gallery
+//Gallery
 function displayWorks(works, { withLink = false } = {}) {
   const gallery = document.getElementById('gallery');
   if (!gallery) return;

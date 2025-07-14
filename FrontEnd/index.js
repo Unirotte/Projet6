@@ -1,17 +1,17 @@
 import { displayWorks, setupNavigation, fetchGallery } from './general.js';
 
-//TOKEN CONNEXION
+//TOKEN CONNECTION
 const token = localStorage.getItem('token');
 document.addEventListener('DOMContentLoaded', async () => {
   const logLink = document.getElementById('Log');
 
-  // gère le bouton login/logout
+  // Handles the login/logout button
   if (token && logLink) {
     logLink.textContent = 'logout';
     logLink.addEventListener('click', (e) => {
       e.preventDefault();
-      localStorage.removeItem('token'); // Supprime le token
-      window.location.href = './login/login.html'; // Redirige vers la page d’accueil
+      localStorage.removeItem('token'); // Removes the token
+      window.location.href = './login/login.html'; // Redirects to the home page
     });
   }
 
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.body.classList.remove('hide-admin');
     document.getElementById('filter').style.display = 'none';
     const { initGalleryAdmin } = await import('./admin/modal.js');
-    await initGalleryAdmin(displayWorks); //appel de la function de mise a jour de la galerie
+    await initGalleryAdmin(displayWorks); //Call the gallery update function
 
   } else {
     document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupNavigation();
 });
 
-// --------- Fonction galerie publique avec filtres ---------
-//function du filtre de la galerie
+// --------- Public gallery function with filters ---------
+//Gallery filter function
 async function loadCategories() {
   const response = await fetch('http://localhost:5678/api/categories');
   const categories = await response.json();
@@ -50,7 +50,7 @@ async function loadCategories() {
     setActiveFilter(allBtn);
   });
 
-  // Selectionne le filtre "Tous" par défaut
+  // Selects the "All" filter by default
 
   setActiveFilter(allBtn);
 
@@ -75,13 +75,13 @@ function setActiveFilter(activeBtn) {
   activeBtn.classList.add('active');
 }
 
-//scroll en direction de la section
+//Scroll towards the section
 document.addEventListener('DOMContentLoaded', () => {
-  const contactScroll = window.location.hash; //trouve le #contact grâce au w.l.hash 
+  const contactScroll = window.location.hash; //finds #contact using w.l.hash 
   if (contactScroll) {
     const ancre = document.querySelector(contactScroll);
     if (ancre) {
-      // attendre un petit délai que le contenu soit bien chargé
+      // wait a short delay for the content to be fully loaded
       setTimeout(() => {
         ancre.scrollIntoView({ behavior: 'smooth' });
       }, 300);
@@ -89,4 +89,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-setupNavigation(); // Appel de la fonction de navigation
+setupNavigation(); // Call the navigation function

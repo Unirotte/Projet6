@@ -14,7 +14,7 @@ const categorySelect = document.getElementById('selectModal');
 const closeModalBtn = document.querySelector('.close-modal');
 
 
-//Supprimer une oeuvre 
+//Delete a work
 async function deleteWork(id) {
     try {
         const response = await fetch(`http://localhost:5678/api/works/${id}`, {
@@ -45,7 +45,7 @@ async function updateGallery(withLink = false) {
     }
 }
 
-//Galery modal + trash 
+//Gallery modal + trash
 function displayGallery(works) {
     if (!gallery) {
         console.warn("Élément .gallery-modal introuvable !");
@@ -79,7 +79,7 @@ function displayGallery(works) {
     });
 }
 
-//Affichage de la galerie d'ajout d'oeuvre
+//Display the add work gallery
 async function showGalleryView(works = null) {
     addFormView.classList.remove('active');
     galleryView.classList.add('active');
@@ -91,7 +91,7 @@ async function showGalleryView(works = null) {
     displayGallery(galleryWorks);
 }
 
-//reactive la galerie avec la poubelle 
+//Reactivate the gallery with the trash
 function showFormView() {
     galleryView.classList.remove('active');
     addFormView.classList.add('active');
@@ -100,9 +100,9 @@ function showFormView() {
     resetAddWorkForm();
 }
 
-// === FONCTIONS DE GESTION DU FORMULAIRE ===
+// === FORM MANAGEMENT FUNCTIONS ===
 
-// Vide tout les champs de l'ajout d'oeuvre et remove en cas de retour en arrière
+// Clear all fields of the add work form and remove in case of going back
 function resetAddWorkForm() {
     const imageInput = document.getElementById('imageInput');
     const previewImage = document.getElementById('preview');
@@ -110,15 +110,15 @@ function resetAddWorkForm() {
 
     if (!addWorkForm || !imageInput || !previewImage || !imageLabel) return;
 
-    addWorkForm.reset();              // reset les champs texte, select etc
-    imageInput.value = "";            // vide le input file (sinon le fichier reste sélectionné)
-    previewImage.src = "";            // vide la preview de l'image
-    previewImage.classList.add('hidden');  // cache l'image preview
+    addWorkForm.reset();              // reset text, select fields etc
+    imageInput.value = "";            // clear the file input (otherwise the file remains selected)
+    previewImage.src = "";            // clear the image preview
+    previewImage.classList.add('hidden');  // hide the image preview
     imageLabel.classList.remove("image-only");
-    updateValidateButtonState(); // met à jour l'état du bouton valider
+    updateValidateButtonState(); // update the state of the validate button
 }
 
-// Gestion de l'aperçu de l'image dans le modal d'ajout d'œuvre
+// Manage the image preview in the add work modal
 function previewImage(e) {
     const input = e.target;
     const image = document.getElementById("preview");
@@ -133,13 +133,13 @@ function previewImage(e) {
         }
         reader.readAsDataURL(input.files[0]);
     } else {
-        // Si on supprime l'image, on réaffiche le placeholder
+        // If the image is deleted, show the placeholder again
         image.src = "";
         image.classList.add("hidden");
     }
 }
 
-// function de bloquage du bouton valider
+// Function to disable the validate button
 function updateValidateButtonState() {
     const imageInput = document.getElementById('imageInput');
 
@@ -158,26 +158,26 @@ function updateValidateButtonState() {
     }
 }
 
-//croix 
+//Cross (close button)
 function closeModal() {
-    //  Fermer la modale
+    //  Close the modal
     modalContainer.classList.remove('active');
 
-    //  Réinitialiser le formulaire 
+    //  Reset the form
     resetAddWorkForm();
 
-    //  Nettoyer les champs ajoutés 
+    //  Clean up added fields
     const imagePreview = document.querySelector('.preview');
     if (imagePreview) imagePreview.innerHTML = '';
 
-    // Remet les active de la galerie de la modale 
+    // Reset the active states of the modal gallery
     addFormView.classList.remove('active');
     galleryView.classList.add('active');
     newPictureBtn.classList.remove('hidden');
     validateBtn.classList.remove('active');
 }
 
-//function ouverture / Fermeture de la modal
+//Function to open/close the modal
 async function toggleModal() {
     modalContainer.classList.toggle('active');
 
@@ -187,8 +187,8 @@ async function toggleModal() {
     }
 }
 
-// === INITIALISATION ===
-// Initialisation de la galerie admin, gestion ajout d’œuvre
+// === INITIALIZATION ===
+// Initialization of the admin gallery, manage adding works
 async function initGalleryAdmin() {
     await updateGallery(true);
 
@@ -228,17 +228,17 @@ async function initGalleryAdmin() {
     }
 }
 
-// ========== ÉVÉNEMENTS ========== //
-// Gestion pour le redémarrage propre du modal après ajout d'une image sans envoie 
+// ========== EVENTS ========== //
+// Manage proper restart of the modal after adding an image without sending
 modalTrigger.forEach(trigger => trigger.addEventListener('click', toggleModal));
 closeModalBtn.addEventListener('click', () => {
-    closeModal(); // on appelle la fonction de fermeture proprement
+    closeModal(); // call the close function properly
 });
 backBtn.addEventListener('click', async () => {
     const updatedWorks = await fetchGallery();
     showGalleryView(updatedWorks);
 });
-//Ajout du bouton retour dans la modal d'ajour d'oeuvre
+//Add the back button in the add work modal
 newPictureBtn.addEventListener('click', () => {
     if (gallery) gallery.innerHTML = "";
     backBtn.style.display = 'block';
@@ -246,7 +246,7 @@ newPictureBtn.addEventListener('click', () => {
 });
 
 document.getElementById('imageInput').addEventListener('click', (e) => {
-    e.target.value = ''; // réinitialise la valeur pour autoriser un nouveau choix
+    e.target.value = ''; // reset the value to allow a new selection
 
 });
 
