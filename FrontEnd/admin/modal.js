@@ -1,5 +1,7 @@
+
 import { fetchGallery, displayWorks, } from '../general.js';
 
+// Sélection des éléments du DOM
 const modalContainer = document.querySelector('.modal-container');
 const modalTrigger = document.querySelectorAll('.modal-trigger');
 const galleryView = document.querySelector('.gallery-view');
@@ -14,7 +16,7 @@ const categorySelect = document.getElementById('selectModal');
 const closeModalBtn = document.querySelector('.close-modal');
 
 
-//Delete a work
+// Supprimer une œuvre
 async function deleteWork(id) {
     try {
         const response = await fetch(`http://localhost:5678/api/works/${id}`, {
@@ -36,6 +38,7 @@ async function deleteWork(id) {
     }
 }
 
+// Mettre à jour la galerie
 async function updateGallery(withLink = false) {
     try {
         const works = await fetchGallery();
@@ -45,7 +48,7 @@ async function updateGallery(withLink = false) {
     }
 }
 
-//Gallery modal + trash
+// Affichage de la galerie dans la modale + icône de suppression
 function displayGallery(works) {
     if (!gallery) {
         console.warn("Élément .gallery-modal introuvable !");
@@ -79,7 +82,7 @@ function displayGallery(works) {
     });
 }
 
-//Display the add work gallery
+// Afficher la vue galerie (ajout d'œuvre)
 async function showGalleryView(works = null) {
     addFormView.classList.remove('active');
     galleryView.classList.add('active');
@@ -91,7 +94,7 @@ async function showGalleryView(works = null) {
     displayGallery(galleryWorks);
 }
 
-//Reactivate the gallery with the trash
+// Réactiver la galerie avec la corbeille
 function showFormView() {
     galleryView.classList.remove('active');
     addFormView.classList.add('active');
@@ -100,9 +103,9 @@ function showFormView() {
     resetAddWorkForm();
 }
 
-// === FORM MANAGEMENT FUNCTIONS ===
+// === FONCTIONS DE GESTION DU FORMULAIRE ===
 
-// Clear all fields of the add work form and remove in case of going back
+// Réinitialiser tous les champs du formulaire d'ajout d'œuvre et nettoyer si retour
 function resetAddWorkForm() {
     const imageInput = document.getElementById('imageInput');
     const previewImage = document.getElementById('preview');
@@ -118,7 +121,7 @@ function resetAddWorkForm() {
     updateValidateButtonState(); // update the state of the validate button
 }
 
-// Manage the image preview in the add work modal
+// Gérer l'aperçu de l'image dans la modale d'ajout d'œuvre
 function previewImage(e) {
     const input = e.target;
     const image = document.getElementById("preview");
@@ -139,7 +142,7 @@ function previewImage(e) {
     }
 }
 
-// Function to disable the validate button
+// Fonction pour activer/désactiver le bouton valider
 function updateValidateButtonState() {
     const imageInput = document.getElementById('imageInput');
 
@@ -158,26 +161,26 @@ function updateValidateButtonState() {
     }
 }
 
-//Cross (close button)
+// Croix (bouton de fermeture)
 function closeModal() {
-    //  Close the modal
+    // Fermer la modale
     modalContainer.classList.remove('active');
 
-    //  Reset the form
+    // Réinitialiser le formulaire
     resetAddWorkForm();
 
-    //  Clean up added fields
+    // Nettoyer les champs ajoutés
     const imagePreview = document.querySelector('.preview');
     if (imagePreview) imagePreview.innerHTML = '';
 
-    // Reset the active states of the modal gallery
+    // Réinitialiser les états actifs de la galerie modale
     addFormView.classList.remove('active');
     galleryView.classList.add('active');
     newPictureBtn.classList.remove('hidden');
     validateBtn.classList.remove('active');
 }
 
-//Function to open/close the modal
+// Fonction pour ouvrir/fermer la modale
 async function toggleModal() {
     modalContainer.classList.toggle('active');
 
@@ -187,8 +190,8 @@ async function toggleModal() {
     }
 }
 
-// === INITIALIZATION ===
-// Initialization of the admin gallery, manage adding works
+// === INITIALISATION ===
+// Initialisation de la galerie admin, gestion de l'ajout d'œuvres
 async function initGalleryAdmin() {
     await updateGallery(true);
 
@@ -228,17 +231,17 @@ async function initGalleryAdmin() {
     }
 }
 
-// ========== EVENTS ========== //
-// Manage proper restart of the modal after adding an image without sending
+// ========== ÉVÉNEMENTS ========== //
+// Gérer la réinitialisation correcte de la modale après ajout d'une image sans envoi
 modalTrigger.forEach(trigger => trigger.addEventListener('click', toggleModal));
 closeModalBtn.addEventListener('click', () => {
-    closeModal(); // call the close function properly
+    closeModal(); // appel correct de la fonction de fermeture
 });
 backBtn.addEventListener('click', async () => {
     const updatedWorks = await fetchGallery();
     showGalleryView(updatedWorks);
 });
-//Add the back button in the add work modal
+// Ajouter le bouton retour dans la modale d'ajout d'œuvre
 newPictureBtn.addEventListener('click', () => {
     if (gallery) gallery.innerHTML = "";
     backBtn.style.display = 'block';
@@ -246,7 +249,7 @@ newPictureBtn.addEventListener('click', () => {
 });
 
 document.getElementById('imageInput').addEventListener('click', (e) => {
-    e.target.value = ''; // reset the value to allow a new selection
+    e.target.value = ''; // réinitialiser la valeur pour permettre une nouvelle sélection
 
 });
 

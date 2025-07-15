@@ -1,17 +1,17 @@
 import { displayWorks, setupNavigation, fetchGallery } from './general.js';
 
-//TOKEN CONNECTION
+//CONNEXION TOKEN
 const token = localStorage.getItem('token');
 document.addEventListener('DOMContentLoaded', async () => {
   const logLink = document.getElementById('Log');
 
-  // Handles the login/logout button
+  // Gère le bouton de connexion/déconnexion
   if (token && logLink) {
     logLink.textContent = 'logout';
     logLink.addEventListener('click', (e) => {
       e.preventDefault();
-      localStorage.removeItem('token'); // Removes the token
-      window.location.href = './login/login.html'; // Redirects to the home page
+      localStorage.removeItem('token'); // Supprime le token
+      window.location.href = './login/login.html'; // Redirige vers la page de connexion
     });
   }
 
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.body.classList.remove('hide-admin');
     document.getElementById('filter').style.display = 'none';
     const { initGalleryAdmin } = await import('./admin/modal.js');
-    await initGalleryAdmin(displayWorks); //Call the gallery update function
+    await initGalleryAdmin(displayWorks); //Appelle la fonction de mise à jour de la galerie
 
   } else {
     document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupNavigation();
 });
 
-// --------- Public gallery function with filters ---------
-//Gallery filter function
+// --------- Fonction galerie publique avec filtres ---------
+//Fonction de filtre de la galerie
 async function loadCategories() {
   const response = await fetch('http://localhost:5678/api/categories');
   const categories = await response.json();
@@ -50,7 +50,7 @@ async function loadCategories() {
     setActiveFilter(allBtn);
   });
 
-  // Selects the "All" filter by default
+  // Sélectionne le filtre "Tous" par défaut
 
   setActiveFilter(allBtn);
 
@@ -75,13 +75,13 @@ function setActiveFilter(activeBtn) {
   activeBtn.classList.add('active');
 }
 
-//Scroll towards the section
+//Scroll vers la section
 document.addEventListener('DOMContentLoaded', () => {
-  const contactScroll = window.location.hash; //finds #contact using w.l.hash 
+  const contactScroll = window.location.hash; //trouve #contact avec window.location.hash
   if (contactScroll) {
     const ancre = document.querySelector(contactScroll);
     if (ancre) {
-      // wait a short delay for the content to be fully loaded
+      // attend un court délai pour que le contenu soit bien chargé
       setTimeout(() => {
         ancre.scrollIntoView({ behavior: 'smooth' });
       }, 300);
@@ -89,4 +89,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-setupNavigation(); // Call the navigation function
+setupNavigation(); // Appelle la fonction de navigation
